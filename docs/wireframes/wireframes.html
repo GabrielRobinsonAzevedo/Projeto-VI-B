@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vitrine+ — Wireframes</title>
+<!--
+  Vitrine+ — wireframes de baixa fidelidade (fonte editável).
+  Uso:
+    wireframes.html            -> todas as telas em grade (visão geral)
+    wireframes.html?screen=04  -> apenas a tela 04, ocupando 390x844
+    wireframes.html?measure=1  -> escreve no DOM quais telas transbordam (debug)
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--w:#fff;--l:#f2f2f2;--m:#d9d9d9;--b:#9e9e9e;--d:#444;--bd:1.5px solid #9e9e9e}
+html,body{background:#ececec}
+body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--d);font-size:13px;line-height:1.3;-webkit-font-smoothing:antialiased}
+
+/* ---------- visão geral ---------- */
+.overview{padding:56px 64px 64px}
+.ov-head{margin-bottom:40px}
+.ov-head h1{font-size:44px;font-weight:800;letter-spacing:-.5px}
+.ov-head p{font-size:18px;color:#777;margin-top:6px}
+.grid{display:grid;grid-template-columns:repeat(4,390px);gap:56px 44px}
+.cell .label{text-align:center;margin-top:16px;font-size:18px;font-weight:700}
+.cell .label span{color:var(--b);font-weight:600;margin-right:6px}
+
+/* ---------- modo tela única ---------- */
+body.single{background:#fff}
+body.single .overview{padding:0}
+body.single .ov-head,body.single .label{display:none}
+body.single .grid{display:block}
+body.single .cell{display:none}
+body.single .cell.on{display:block}
+body.single .phone{border-radius:0;box-shadow:none}
+
+/* ---------- aparelho ---------- */
+.phone{width:390px;height:844px;background:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;border-radius:34px;box-shadow:0 0 0 2px var(--b),0 10px 30px rgba(0,0,0,.08)}
+.sb{height:30px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px 0 26px;font-size:13px;font-weight:600}
+.sbi{display:flex;gap:6px;align-items:center}
+.sbi .sig{width:14px;height:12px;background:var(--d);clip-path:polygon(100% 0,100% 100%,0 100%)}
+.sbi .wifi{width:15px;height:11px;background:var(--d);clip-path:polygon(50% 100%,0 25%,20% 0,80% 0,100% 25%);border-radius:2px}
+.sbi .bat{width:9px;height:14px;border:1.5px solid var(--d);border-radius:2px;position:relative}
+.sbi .bat:after{content:"";position:absolute;left:1px;right:1px;bottom:1px;height:65%;background:var(--d)}
+.ct{flex:1;min-height:0;overflow:hidden;padding:8px 16px 16px;display:flex;flex-direction:column;gap:12px;position:relative}
+.gh{position:absolute;bottom:7px;left:50%;width:108px;height:4px;margin-left:-54px;background:var(--b);border-radius:2px;z-index:9}
+
+/* navegação inferior */
+.nav{height:78px;flex:none;border-top:1.5px solid var(--m);background:#f7f7f7;display:flex;padding-top:9px}
+.nav .t{flex:1;text-align:center;font-size:11px;color:#666}
+.nav .ni{width:58px;height:30px;margin:0 auto 4px;border-radius:15px;display:flex;align-items:center;justify-content:center}
+.nav .ni b{width:20px;height:20px;border:1.5px solid var(--b);border-radius:6px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.nav .t.on{color:var(--d);font-weight:700}
+.nav .t.on .ni{background:var(--m)}
+.nav .t.on .ni b{border-color:var(--d);background:#fff}
+
+/* utilitários */
+.row{display:flex;align-items:center;gap:10px}
+.col{display:flex;flex-direction:column}
+.sp{flex:1}
+.mut{color:#888}
+.sm{font-size:11px}
+.xs{font-size:10px}
+.b{font-weight:700}
+.r{text-align:right}
+.h1{font-size:26px;font-weight:800;letter-spacing:-.3px}
+.h2{font-size:15px;font-weight:700}
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:-4px}
+.link{font-size:12px;text-decoration:underline;color:#666}
+.card{border:var(--bd);border-radius:14px;padding:12px;background:#fff}
+.fill{background:var(--l)}
+.ic{width:28px;height:28px;flex:none;border:1.5px solid var(--b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:#fff}
+.ic.sq{border-radius:8px}
+.av{width:40px;height:40px;flex:none;border-radius:50%;background:var(--m);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:1.5px solid var(--b)}
+.chip{display:inline-flex;align-items:center;height:30px;padding:0 12px;border:var(--bd);border-radius:15px;font-size:12px;white-space:nowrap;background:#fff;flex:none}
+.chip.on{background:var(--d);border-color:var(--d);color:#fff;font-weight:600}
+.chips{display:flex;gap:8px;overflow:hidden}
+.pill{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:10px;background:var(--m);font-size:10px;font-weight:700;white-space:nowrap}
+.pill.o{background:#fff;border:1.5px solid var(--b)}
+.btn{height:50px;border-radius:25px;background:var(--d);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex:none}
+.btn.sm2{height:36px;border-radius:18px;font-size:13px;padding:0 16px;display:inline-flex}
+.btn.ghost{background:#fff;color:var(--d);border:var(--bd)}
+.field{height:46px;border:var(--bd);border-radius:12px;display:flex;align-items:center;gap:10px;padding:0 12px;color:#888;flex:none;background:#fff}
+.fl{font-size:11px;color:#777;margin-bottom:4px;font-weight:600}
+.fv{color:var(--d)}
+.ph{border:1.5px solid var(--b);background-color:var(--l);background-image:linear-gradient(to top right,transparent calc(50% - 1px),var(--b) calc(50% - .5px),var(--b) calc(50% + .5px),transparent calc(50% + 1px)),linear-gradient(to bottom right,transparent calc(50% - 1px),var(--b) calc(50% - .5px),var(--b) calc(50% + .5px),transparent calc(50% + 1px))}
+.em{width:40px;height:40px;flex:none;border-radius:10px;background:var(--l);border:1.5px solid var(--m);display:flex;align-items:center;justify-content:center;font-size:20px;filter:grayscale(1);opacity:.85}
+.bar{height:6px;border-radius:3px;background:var(--m);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--b)}
+.div{height:1.5px;background:var(--m);flex:none}
+.back{height:44px;flex:none;display:flex;align-items:center;gap:12px;font-size:18px;font-weight:700}
+.back .ar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:1.5px solid var(--m)}
+.fab{position:absolute;right:16px;bottom:94px;height:56px;min-width:56px;border-radius:18px;background:var(--d);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;padding:0 18px;box-shadow:0 4px 10px rgba(0,0,0,.18);z-index:5}
+.fab.nonav{bottom:28px}
+.fab b{font-size:24px;font-weight:400;line-height:1}
+svg text{font-family:-apple-system,"Segoe UI",Roboto,sans-serif}
+
+/* específicos */
+.qs .c{width:44px!important;height:44px!important;margin-bottom:3px!important}
+.hero{background:var(--d);color:#fff;border-radius:18px;padding:12px 16px;flex:none}
+.hero .chip{height:22px;font-size:11px;background:#666;border-color:#666;color:#fff;padding:0 9px}
+.qa{display:flex;justify-content:space-between;flex:none}
+.qa div{width:78px;text-align:center;font-size:11px}
+.qa .c{width:48px;height:48px;border-radius:50%;margin:0 auto 5px;border:var(--bd);background:var(--l);display:flex;align-items:center;justify-content:center;font-weight:700}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi{border:var(--bd);border-radius:12px;padding:6px 10px}
+.kpi .v{font-size:17px;font-weight:800;margin:1px 0}
+.list .it{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1.5px solid var(--l)}
+.list .it:last-child{border-bottom:0}
+.seg{display:flex;border:var(--bd);border-radius:22px;padding:3px;height:42px;flex:none}
+.seg div{flex:1;display:flex;align-items:center;justify-content:center;border-radius:18px;font-size:13px}
+.seg .on{background:var(--d);color:#fff;font-weight:700}
+.dots{display:flex;gap:4px}
+.dots i{width:14px;height:8px;border-radius:2px;background:var(--m)}
+.dots i.f{background:var(--d)}
+.num{display:grid;gap:8px}
+.num div{height:52px;border:var(--bd);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
+.num .on{background:var(--d);border-color:var(--d);color:#fff}
+.stock{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:10px;font-size:10px;font-weight:700;background:var(--l);border:1.5px solid var(--m);white-space:nowrap}
+.stock.low{background:#fff;border:1.5px dashed var(--d);color:var(--d)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:var(--bd);border-radius:22px 22px 0 0;padding:10px 16px 26px;box-shadow:0 -6px 18px rgba(0,0,0,.08);display:flex;flex-direction:column;gap:12px;z-index:6}
+.handle{width:40px;height:4px;border-radius:2px;background:var(--m);margin:0 auto}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pc{border:var(--bd);border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.pc.sel{border:2.5px solid var(--d);padding:7px}
+.pc .img{height:72px;border-radius:10px;background:var(--l);display:flex;align-items:center;justify-content:center;font-size:30px;filter:grayscale(1);opacity:.85}
+.plus{width:28px;height:28px;border-radius:50%;background:var(--d);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px}
+.step{display:flex;align-items:center;justify-content:space-between;height:30px;border-radius:15px;background:var(--d);color:#fff;font-weight:700;padding:0 10px;font-size:15px}
+</style>
+</head>
+<body>
+<div class="overview">
+  <div class="ov-head">
+    <h1>Vitrine+ — Wireframes</h1>
+    <p>Baixa fidelidade · App Android (Flutter) · 12 telas · Projeto VI-B</p>
+  </div>
+  <div class="grid">
+
+<!-- ===================== 01 SPLASH ===================== -->
+<div class="cell" data-n="01" data-name="Splash">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct" style="justify-content:center;align-items:center;gap:0;padding-bottom:90px">
+    <div class="ph" style="width:116px;height:116px;border-radius:30px"></div>
+    <div style="font-size:42px;font-weight:800;letter-spacing:-1px;margin-top:22px">Vitrine+</div>
+    <div class="mut" style="font-size:15px;margin-top:6px">Dados que fazem seu negócio crescer</div>
+    <div style="width:30px;height:30px;border-radius:50%;border:3px solid var(--m);border-top-color:var(--d);margin-top:40px"></div>
+    <div class="mut sm" style="position:absolute;bottom:40px;left:0;right:0;text-align:center;letter-spacing:.5px">Projeto VI-B</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>01</span>Splash</div>
+</div>
+
+<!-- ===================== 02 INÍCIO ===================== -->
+<div class="cell" data-n="02" data-name="Início">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct" style="gap:7px;padding-top:2px;padding-bottom:4px">
+    <div class="row" style="flex:none">
+      <div class="av" style="width:38px;height:38px">CA</div>
+      <div class="col"><span class="mut sm">Olá,</span><span class="b" style="font-size:16px">Café Aroma &amp; Cia</span></div>
+      <div class="sp"></div>
+      <div class="ic" style="width:36px;height:36px">Eq</div>
+      <div class="ic" style="width:36px;height:36px">⚙</div>
+    </div>
+    <div class="hero" style="padding:9px 16px">
+      <div style="font-size:12px;opacity:.8">Faturamento de hoje</div>
+      <div class="row" style="justify-content:space-between;margin:2px 0 6px">
+        <span style="font-size:26px;font-weight:800;letter-spacing:-.5px">R$ 1.284,50</span>
+        <span class="chip">+12% vs. sexta passada</span>
+      </div>
+      <div style="font-size:12px;opacity:.85">38 vendas · Ticket R$ 33,80</div>
+    </div>
+    <div class="qa qs">
+      <div><div class="c">+</div>Nova venda</div>
+      <div><div class="c">★</div>Avaliação</div>
+      <div><div class="c">P</div>Produtos</div>
+      <div><div class="c">D</div>Divulgar</div>
+    </div>
+    <div class="sec"><span class="h2">Últimos 30 dias</span></div>
+    <div class="kpis" style="flex:none">
+      <div class="kpi"><div class="row" style="justify-content:space-between"><span class="mut sm">Faturamento</span><span class="pill">+8%</span></div><div class="v">R$ 31,2 mil</div></div>
+      <div class="kpi"><div class="row" style="justify-content:space-between"><span class="mut sm">Vendas</span><span class="pill">+5%</span></div><div class="v">924</div></div>
+      <div class="kpi"><div class="row" style="justify-content:space-between"><span class="mut sm">Ticket médio</span><span class="pill">+3%</span></div><div class="v">R$ 33,77</div></div>
+      <div class="kpi"><div class="row" style="justify-content:space-between"><span class="mut sm">NPS</span><span class="pill o">Bom</span></div><div class="v">52</div></div>
+    </div>
+    <div class="card" style="flex:none;padding:10px 12px">
+      <div class="row" style="justify-content:space-between"><span class="b" style="font-size:13px">Vendas · 14 dias + previsão</span><span class="row xs mut" style="gap:10px"><span class="row" style="gap:4px"><i style="width:14px;height:2.5px;background:#444"></i>Realizado</span><span class="row" style="gap:4px"><i style="width:14px;border-top:2.5px dashed #9e9e9e"></i>Previsão</span></span></div>
+      <svg width="100%" height="62" viewBox="0 0 330 76" preserveAspectRatio="none" style="display:block;margin-top:4px">
+        <g stroke="#e3e3e3" stroke-width="1"><line x1="0" y1="10" x2="330" y2="10"/><line x1="0" y1="38" x2="330" y2="38"/><line x1="0" y1="66" x2="330" y2="66"/></g>
+        <line x1="240" y1="2" x2="240" y2="70" stroke="#bdbdbd" stroke-width="1" stroke-dasharray="2 3"/>
+        <polyline fill="none" stroke="#444" stroke-width="2.2" stroke-linejoin="round" points="0,48 18,40 37,44 55,30 74,22 92,36 111,42 129,38 148,30 166,34 185,18 203,14 222,28 240,24"/>
+        <polyline fill="none" stroke="#9e9e9e" stroke-width="2.2" stroke-dasharray="6 4" points="240,24 262,20 284,26 306,16 330,12"/>
+        <circle cx="240" cy="24" r="3.5" fill="#444"/>
+      </svg>
+    </div>
+    <div class="sec"><span class="h2">O que os dados dizem</span><span class="link">ver todos</span></div>
+    <div class="row" style="gap:8px;align-items:stretch;flex:none">
+      <div class="card fill" style="flex:1;padding:10px"><div class="row" style="gap:6px"><div class="ic sq" style="width:20px;height:20px;font-size:10px">↑</div><span class="b" style="font-size:12px">Sábado é seu melhor dia</span></div><div class="mut xs" style="margin-top:4px">34% acima da média.</div></div>
+      <div class="card fill" style="flex:1;padding:10px"><div class="row" style="gap:6px"><div class="ic sq" style="width:20px;height:20px;font-size:10px">!</div><span class="b" style="font-size:12px">9 clientes em risco</span></div><div class="mut xs" style="margin-top:4px">Sem compras há 30+ dias.</div></div>
+    </div>
+    <div class="sec"><span class="h2">Mais vendidos</span></div>
+    <div class="list" style="flex:none;margin-top:-4px">
+      <div class="it" style="padding:4px 0"><div class="em" style="width:30px;height:30px;font-size:15px">☕</div><div class="col" style="flex:1;gap:4px"><div class="row" style="justify-content:space-between"><span class="b">Café expresso</span><span class="b">R$ 1.272</span></div><div class="row"><div class="bar" style="flex:1"><i style="width:92%"></i></div><span class="mut xs">212 un.</span></div></div></div>
+      <div class="it" style="padding:4px 0"><div class="em" style="width:30px;height:30px;font-size:15px">🧀</div><div class="col" style="flex:1;gap:4px"><div class="row" style="justify-content:space-between"><span class="b">Pão de queijo</span><span class="b">R$ 840</span></div><div class="row"><div class="bar" style="flex:1"><i style="width:73%"></i></div><span class="mut xs">168 un.</span></div></div></div>
+      <div class="it" style="padding:4px 0"><div class="em" style="width:30px;height:30px;font-size:15px">🥐</div><div class="col" style="flex:1;gap:4px"><div class="row" style="justify-content:space-between"><span class="b">Croissant</span><span class="b">R$ 822</span></div><div class="row"><div class="bar" style="flex:1"><i style="width:53%"></i></div><span class="mut xs">121 un.</span></div></div></div>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="t on"><div class="ni"><b>I</b></div>Início</div>
+    <div class="t"><div class="ni"><b>V</b></div>Vendas</div>
+    <div class="t"><div class="ni"><b>C</b></div>Clientes</div>
+    <div class="t"><div class="ni"><b>In</b></div>Insights</div>
+    <div class="t"><div class="ni"><b>D</b></div>Divulgar</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>02</span>Início (Dashboard)</div>
+</div>
+
+<!-- ===================== 03 VENDAS ===================== -->
+<div class="cell" data-n="03" data-name="Vendas">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct">
+    <div class="row" style="flex:none;height:40px"><span class="h1">Vendas</span><div class="sp"></div><div class="ic" style="width:36px;height:36px">⌕</div></div>
+    <div class="card fill row" style="flex:none;padding:14px 16px">
+      <div class="col"><span class="mut sm">Hoje</span><span style="font-size:24px;font-weight:800">R$ 1.284,50</span></div>
+      <div class="sp"></div>
+      <div class="col r"><span class="b" style="font-size:18px">38</span><span class="mut sm">vendas</span></div>
+    </div>
+    <div class="chips" style="flex:none"><span class="chip on">Hoje</span><span class="chip">7 dias</span><span class="chip">30 dias</span></div>
+    <div class="col" style="flex:none">
+      <div class="row mut sm b" style="justify-content:space-between;padding:6px 0;border-bottom:1.5px solid var(--m)"><span>HOJE · QUI, 15/10</span><span>R$ 1.284,50</span></div>
+      <div class="list">
+        <div class="it"><span class="b" style="width:42px">14:32</span><div class="col" style="flex:1"><span class="b">Mariana Souza</span><span class="mut sm">3 itens · Pix</span></div><span class="b">R$ 24,40</span></div>
+        <div class="it"><span class="b" style="width:42px">14:05</span><div class="col" style="flex:1"><span class="b">Cliente avulso</span><span class="mut sm">1 item · Dinheiro</span></div><span class="b">R$ 6,00</span></div>
+        <div class="it"><span class="b" style="width:42px">13:47</span><div class="col" style="flex:1"><span class="b">Rafael Lima</span><span class="mut sm">4 itens · Crédito</span></div><span class="b">R$ 41,30</span></div>
+        <div class="it"><span class="b" style="width:42px">13:20</span><div class="col" style="flex:1"><span class="b">Cliente avulso</span><span class="mut sm">2 itens · Débito</span></div><span class="b">R$ 15,50</span></div>
+        <div class="it"><span class="b" style="width:42px">12:58</span><div class="col" style="flex:1"><span class="b">Juliana Alves</span><span class="mut sm">3 itens · Pix</span></div><span class="b">R$ 32,90</span></div>
+      </div>
+      <div class="row mut sm b" style="justify-content:space-between;padding:6px 0;border-bottom:1.5px solid var(--m);margin-top:6px"><span>ONTEM · QUA, 14/10</span><span>R$ 1.102,20</span></div>
+      <div class="list">
+        <div class="it"><span class="b" style="width:42px">18:41</span><div class="col" style="flex:1"><span class="b">Pedro Henrique</span><span class="mut sm">2 itens · Pix</span></div><span class="b">R$ 19,00</span></div>
+        <div class="it"><span class="b" style="width:42px">18:12</span><div class="col" style="flex:1"><span class="b">Cliente avulso</span><span class="mut sm">3 itens · Crédito</span></div><span class="b">R$ 27,60</span></div>
+        <div class="it"><span class="b" style="width:42px">17:55</span><div class="col" style="flex:1"><span class="b">Camila Rocha</span><span class="mut sm">1 item · Pix</span></div><span class="b">R$ 9,20</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="fab"><b>+</b>Nova venda</div>
+  <div class="nav">
+    <div class="t"><div class="ni"><b>I</b></div>Início</div>
+    <div class="t on"><div class="ni"><b>V</b></div>Vendas</div>
+    <div class="t"><div class="ni"><b>C</b></div>Clientes</div>
+    <div class="t"><div class="ni"><b>In</b></div>Insights</div>
+    <div class="t"><div class="ni"><b>D</b></div>Divulgar</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>03</span>Vendas</div>
+</div>
+
+<!-- ===================== 04 NOVA VENDA ===================== -->
+<div class="cell" data-n="04" data-name="Nova venda">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct" style="gap:10px">
+    <div class="back"><span class="ar">←</span>Nova venda</div>
+    <div class="field"><span class="ic" style="width:22px;height:22px;font-size:11px">⌕</span>Buscar produto…</div>
+    <div class="chips" style="flex:none"><span class="chip on">Todos</span><span class="chip">Bebidas</span><span class="chip">Padaria</span><span class="chip">Lanches</span><span class="chip">Doces</span></div>
+    <div class="pg">
+      <div class="pc"><div class="img">☕</div><span class="b">Café expresso</span><div class="row" style="justify-content:space-between"><span>R$ 6,00</span><span class="pill">1</span></div></div>
+      <div class="pc sel"><div class="img">☕</div><span class="b">Cappuccino</span><div class="row" style="justify-content:space-between"><span>R$ 9,20</span></div><div class="step"><span>–</span><span>2</span><span>+</span></div></div>
+      <div class="pc"><div class="img">🧀</div><span class="b">Pão de queijo</span><div class="row" style="justify-content:space-between"><span>R$ 5,00</span><span class="plus">+</span></div></div>
+      <div class="pc"><div class="img">🥐</div><span class="b">Croissant</span><div class="row" style="justify-content:space-between"><span>R$ 8,50</span><span class="plus">+</span></div></div>
+      <div class="pc"><div class="img">🍰</div><span class="b">Bolo de cenoura</span><div class="row" style="justify-content:space-between"><span>R$ 7,90</span><span class="plus">+</span></div></div>
+      <div class="pc"><div class="img">🥪</div><span class="b">Misto quente</span><div class="row" style="justify-content:space-between"><span>R$ 11,00</span><span class="plus">+</span></div></div>
+    </div>
+  </div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="row" style="justify-content:space-between"><span class="row" style="gap:8px"><span class="ic" style="width:26px;height:26px">C</span><span class="mut">Cliente:</span></span><span class="b">Selecionar ▸</span></div>
+    <div class="chips"><span class="chip on">Pix</span><span class="chip">Crédito</span><span class="chip">Débito</span><span class="chip">Dinheiro</span></div>
+    <div class="div"></div>
+    <div class="row" style="justify-content:space-between"><span class="mut">Total</span><span style="font-size:18px"><span class="mut" style="font-size:14px">3 itens · </span><b>R$ 24,40</b></span></div>
+    <div class="btn">Finalizar venda</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>04</span>Nova venda</div>
+</div>
+
+<!-- ===================== 05 CLIENTES ===================== -->
+<div class="cell" data-n="05" data-name="Clientes">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct">
+    <div class="row" style="flex:none;height:40px"><span class="h1">Clientes</span></div>
+    <div class="field"><span class="ic" style="width:22px;height:22px;font-size:11px">⌕</span>Buscar por nome ou telefone…</div>
+    <div class="chips" style="flex:none"><span class="chip">Todos 60</span><span class="chip on">Campeões 10</span><span class="chip">Fiéis 14</span><span class="chip">Em risco 9</span><span class="chip">Perdidos 11</span><span class="chip">Novos 8</span></div>
+    <div class="card fill" style="flex:none">
+      <div class="row" style="gap:8px"><span class="ic sq" style="width:26px;height:26px">✦</span><span class="b">Ação sugerida · Campeões</span></div>
+      <div class="mut sm" style="margin:6px 0 10px">Compram com frequência e gastam mais. Agradeça com um brinde ou acesso antecipado às novidades.</div>
+      <span class="btn sm2">Enviar campanha</span>
+    </div>
+    <div class="list" style="flex:none">
+      <div class="it"><div class="av">MS</div><div class="col" style="flex:1;gap:2px"><span class="b">Mariana Souza</span><span class="mut xs">Última compra há 3 dias · 24 compras</span><span><span class="pill">Campeã</span></span></div><span class="b">R$ 812</span></div>
+      <div class="it"><div class="av">RL</div><div class="col" style="flex:1;gap:2px"><span class="b">Rafael Lima</span><span class="mut xs">Última compra há 1 dia · 21 compras</span><span><span class="pill">Campeão</span></span></div><span class="b">R$ 734</span></div>
+      <div class="it"><div class="av">JA</div><div class="col" style="flex:1;gap:2px"><span class="b">Juliana Alves</span><span class="mut xs">Última compra há 5 dias · 19 compras</span><span><span class="pill">Campeã</span></span></div><span class="b">R$ 690</span></div>
+      <div class="it"><div class="av">PH</div><div class="col" style="flex:1;gap:2px"><span class="b">Pedro Henrique</span><span class="mut xs">Última compra há 2 dias · 18 compras</span><span><span class="pill">Campeão</span></span></div><span class="b">R$ 655</span></div>
+      <div class="it"><div class="av">CR</div><div class="col" style="flex:1;gap:2px"><span class="b">Camila Rocha</span><span class="mut xs">Última compra há 4 dias · 17 compras</span><span><span class="pill">Campeã</span></span></div><span class="b">R$ 610</span></div>
+    </div>
+  </div>
+  <div class="fab"><b>+</b></div>
+  <div class="nav">
+    <div class="t"><div class="ni"><b>I</b></div>Início</div>
+    <div class="t"><div class="ni"><b>V</b></div>Vendas</div>
+    <div class="t on"><div class="ni"><b>C</b></div>Clientes</div>
+    <div class="t"><div class="ni"><b>In</b></div>Insights</div>
+    <div class="t"><div class="ni"><b>D</b></div>Divulgar</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>05</span>Clientes</div>
+</div>
+
+<!-- ===================== 06 DETALHE DO CLIENTE ===================== -->
+<div class="cell" data-n="06" data-name="Detalhe do cliente">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct">
+    <div class="back"><span class="ar">←</span><span class="sp"></span><span class="ic" style="width:36px;height:36px">✎</span></div>
+    <div class="col" style="align-items:center;flex:none;gap:4px;margin-top:-8px">
+      <div class="av" style="width:76px;height:76px;font-size:24px">MS</div>
+      <span style="font-size:21px;font-weight:800;margin-top:4px">Mariana Souza</span>
+      <span class="pill" style="height:22px;font-size:11px">Campeã</span>
+      <span class="mut sm">(11) 98765-4321</span>
+    </div>
+    <div class="row" style="gap:8px;flex:none">
+      <div class="card fill col" style="flex:1;align-items:center;padding:10px"><span class="mut xs">Recência</span><span class="b" style="font-size:17px">3 dias</span></div>
+      <div class="card fill col" style="flex:1;align-items:center;padding:10px"><span class="mut xs">Frequência</span><span class="b" style="font-size:17px">24</span></div>
+      <div class="card fill col" style="flex:1;align-items:center;padding:10px"><span class="mut xs">Valor</span><span class="b" style="font-size:17px">R$ 812</span></div>
+    </div>
+    <div class="card" style="flex:none">
+      <div class="b" style="margin-bottom:8px">Por que este segmento?</div>
+      <div class="col" style="gap:7px">
+        <div class="row"><span class="ic sq" style="width:22px;height:22px;font-size:10px">R</span><span class="sm" style="width:84px">Recência</span><div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><span class="sp"></span><span class="b sm">5/5</span></div>
+        <div class="row"><span class="ic sq" style="width:22px;height:22px;font-size:10px">F</span><span class="sm" style="width:84px">Frequência</span><div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><span class="sp"></span><span class="b sm">5/5</span></div>
+        <div class="row"><span class="ic sq" style="width:22px;height:22px;font-size:10px">M</span><span class="sm" style="width:84px">Valor</span><div class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div><span class="sp"></span><span class="b sm">4/5</span></div>
+      </div>
+    </div>
+    <div class="card fill" style="flex:none">
+      <div class="b">Ação recomendada</div>
+      <div class="mut sm" style="margin:4px 0 10px">Cliente fiel e frequente. Ofereça um cartão fidelidade ou um mimo na próxima visita.</div>
+      <span class="btn sm2">Enviar mensagem</span>
+    </div>
+    <div class="h2" style="flex:none">Histórico de compras</div>
+    <div class="list" style="flex:none;margin-top:-6px">
+      <div class="it"><div class="col" style="flex:1"><span class="b">Cappuccino, Croissant</span><span class="mut xs">12/10 · 09:14 · Pix</span></div><span class="b">R$ 17,70</span></div>
+      <div class="it"><div class="col" style="flex:1"><span class="b">Café expresso, Pão de queijo</span><span class="mut xs">10/10 · 08:52 · Pix</span></div><span class="b">R$ 11,00</span></div>
+      <div class="it"><div class="col" style="flex:1"><span class="b">Bolo de cenoura, Cappuccino</span><span class="mut xs">07/10 · 16:20 · Crédito</span></div><span class="b">R$ 17,10</span></div>
+    </div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>06</span>Detalhe do cliente</div>
+</div>
+
+<!-- ===================== 07 INSIGHTS ===================== -->
+<div class="cell" data-n="07" data-name="Insights">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct" style="gap:10px">
+    <div class="row" style="flex:none;height:38px"><span class="h1">Insights</span></div>
+    <div class="card" style="flex:none;padding:10px 12px">
+      <div class="row" style="justify-content:space-between;align-items:flex-end">
+        <div class="col"><span class="mut sm">Previsão próximos 7 dias</span><span style="font-size:24px;font-weight:800">R$ 7.980</span></div>
+        <span class="pill o">Tendência +2,1% por semana</span>
+      </div>
+      <svg width="100%" height="110" viewBox="0 0 330 110" style="display:block;margin-top:6px">
+        <line x1="0" y1="85.8" x2="330" y2="85.8" stroke="#d9d9d9"/>
+        <g fill="#bdbdbd" transform="matrix(1,0,0,1.3,0,0)">
+          <rect x="10" y="30" width="30" height="36" rx="4"/><rect x="57" y="22" width="30" height="44" rx="4"/>
+          <rect x="104" y="6" width="30" height="60" rx="4" fill="#444"/><rect x="151" y="26" width="30" height="40" rx="4"/>
+          <rect x="198" y="40" width="30" height="26" rx="4"/><rect x="245" y="36" width="30" height="30" rx="4"/>
+          <rect x="292" y="32" width="30" height="34" rx="4"/>
+        </g>
+        <g font-size="10" fill="#777" text-anchor="middle">
+          <text x="25" y="104">Qui</text><text x="72" y="104">Sex</text><text x="119" y="104" fill="#444" font-weight="700">Sáb</text><text x="166" y="104">Dom</text><text x="213" y="104">Seg</text><text x="260" y="104">Ter</text><text x="307" y="104">Qua</text>
+        </g>
+      </svg>
+    </div>
+    <div class="row" style="gap:8px;align-items:stretch;flex:none">
+      <div class="card" style="flex:1;padding:10px">
+        <div class="b sm">Melhor dia da semana</div>
+        <svg width="100%" height="100" viewBox="0 0 150 100" style="display:block;margin-top:6px">
+          <line x1="0" y1="79.4" x2="150" y2="79.4" stroke="#d9d9d9"/>
+          <g fill="#bdbdbd" transform="matrix(1,0,0,1.28,0,0)"><rect x="4" y="34" width="14" height="28" rx="3"/><rect x="25" y="30" width="14" height="32" rx="3"/><rect x="46" y="32" width="14" height="30" rx="3"/><rect x="67" y="26" width="14" height="36" rx="3"/><rect x="88" y="18" width="14" height="44" rx="3"/><rect x="109" y="4" width="14" height="58" rx="3" fill="#444"/><rect x="130" y="24" width="14" height="38" rx="3"/></g>
+          <g font-size="8" fill="#777" text-anchor="middle"><text x="11" y="95">Seg</text><text x="32" y="95">Ter</text><text x="53" y="95">Qua</text><text x="74" y="95">Qui</text><text x="95" y="95">Sex</text><text x="116" y="95" fill="#444" font-weight="700">Sáb</text><text x="137" y="95">Dom</text></g>
+        </svg>
+      </div>
+      <div class="card" style="flex:1;padding:10px">
+        <div class="b sm">Horários de pico</div>
+        <svg width="100%" height="100" viewBox="0 0 150 100" style="display:block;margin-top:6px">
+          <line x1="0" y1="79.4" x2="150" y2="79.4" stroke="#d9d9d9"/>
+          <g fill="#bdbdbd" transform="matrix(1,0,0,1.28,0,0)">
+            <rect x="2" y="16" width="8" height="46" rx="2" fill="#444"/><rect x="13.5" y="10" width="8" height="52" rx="2" fill="#444"/><rect x="25" y="30" width="8" height="32" rx="2"/><rect x="36.5" y="40" width="8" height="22" rx="2"/><rect x="48" y="36" width="8" height="26" rx="2"/><rect x="59.5" y="28" width="8" height="34" rx="2"/><rect x="71" y="34" width="8" height="28" rx="2"/><rect x="82.5" y="42" width="8" height="20" rx="2"/><rect x="94" y="22" width="8" height="40" rx="2" fill="#444"/><rect x="105.5" y="26" width="8" height="36" rx="2"/><rect x="117" y="38" width="8" height="24" rx="2"/><rect x="128.5" y="44" width="8" height="18" rx="2"/><rect x="140" y="50" width="8" height="12" rx="2"/>
+          </g>
+          <g font-size="8" fill="#777" text-anchor="middle"><text x="6" y="95">7h</text><text x="75" y="95">13h</text><text x="142" y="95">19h</text></g>
+        </svg>
+      </div>
+    </div>
+    <div class="card row" style="flex:none;gap:14px;padding:10px 12px;align-items:center">
+      <div class="col" style="align-items:center;gap:4px">
+        <div class="b sm" style="align-self:flex-start">Curva ABC</div>
+        <svg width="92" height="92" viewBox="0 0 42 42">
+          <circle cx="21" cy="21" r="15.9" fill="none" stroke="#f2f2f2" stroke-width="7"/>
+          <circle cx="21" cy="21" r="15.9" fill="none" stroke="#444" stroke-width="7" stroke-dasharray="70 30" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9" fill="none" stroke="#9e9e9e" stroke-width="7" stroke-dasharray="20 80" stroke-dashoffset="-70" transform="rotate(-90 21 21)"/>
+          <circle cx="21" cy="21" r="15.9" fill="none" stroke="#d9d9d9" stroke-width="7" stroke-dasharray="10 90" stroke-dashoffset="-90" transform="rotate(-90 21 21)"/>
+        </svg>
+      </div>
+      <div class="col" style="flex:1;gap:6px">
+        <div class="row"><span class="pill" style="background:#444;color:#fff">A</span><span class="sm" style="flex:1">Café expresso</span><span class="b sm">42%</span></div>
+        <div class="row"><span class="pill" style="background:#444;color:#fff">A</span><span class="sm" style="flex:1">Pão de queijo</span><span class="b sm">28%</span></div>
+        <div class="row"><span class="pill" style="background:#9e9e9e;color:#fff">B</span><span class="sm" style="flex:1">Croissant</span><span class="b sm">20%</span></div>
+        <div class="row"><span class="pill">C</span><span class="sm" style="flex:1">Misto quente</span><span class="b sm">10%</span></div>
+      </div>
+    </div>
+    <div class="card row" style="flex:none;gap:14px;padding:10px 12px">
+      <div class="col" style="align-items:center">
+        <div class="b sm" style="align-self:flex-start;margin-bottom:6px">Satisfação (NPS)</div>
+        <svg width="110" height="62" viewBox="0 0 110 62">
+          <path d="M10 56 A45 45 0 0 1 100 56" fill="none" stroke="#e3e3e3" stroke-width="12" stroke-linecap="round"/>
+          <path d="M10 56 A45 45 0 0 1 82 20" fill="none" stroke="#444" stroke-width="12" stroke-linecap="round"/>
+          <text x="55" y="54" text-anchor="middle" font-size="22" font-weight="800" fill="#444">52</text>
+        </svg>
+      </div>
+      <div class="col" style="flex:1;gap:7px;justify-content:center;padding-top:16px">
+        <div><div class="row xs" style="justify-content:space-between"><span>Promotores</span><b>64%</b></div><div class="bar"><i style="width:64%;background:#444"></i></div></div>
+        <div><div class="row xs" style="justify-content:space-between"><span>Neutros</span><b>24%</b></div><div class="bar"><i style="width:24%"></i></div></div>
+        <div><div class="row xs" style="justify-content:space-between"><span>Detratores</span><b>12%</b></div><div class="bar"><i style="width:12%;background:#d0d0d0"></i></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="t"><div class="ni"><b>I</b></div>Início</div>
+    <div class="t"><div class="ni"><b>V</b></div>Vendas</div>
+    <div class="t"><div class="ni"><b>C</b></div>Clientes</div>
+    <div class="t on"><div class="ni"><b>In</b></div>Insights</div>
+    <div class="t"><div class="ni"><b>D</b></div>Divulgar</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>07</span>Insights</div>
+</div>
+
+<!-- ===================== 08 DIVULGAR ===================== -->
+<div class="cell" data-n="08" data-name="Divulgar">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct" style="gap:10px">
+    <div class="row" style="flex:none;height:38px"><span class="h1">Divulgar</span></div>
+    <div class="seg"><div class="on">Post</div><div>QR Code</div><div>Mensagens</div></div>
+    <div class="chips" style="flex:none"><span class="chip on">Oferta</span><span class="chip">Mais pedidos</span><span class="chip">Novidade</span></div>
+    <div class="card" style="flex:none;width:250px;height:250px;align-self:center;padding:0;overflow:hidden;display:flex;flex-direction:column;border-radius:16px">
+      <div class="ph" style="flex:1;border:0;border-bottom:1.5px solid var(--b);display:flex;align-items:center;justify-content:center"><span style="font-size:48px;filter:grayscale(1);background:var(--l);border-radius:50%;width:76px;height:76px;display:flex;align-items:center;justify-content:center">🥐</span></div>
+      <div style="padding:10px 14px 12px">
+        <div class="b" style="font-size:17px">Oferta da semana</div>
+        <div class="row" style="justify-content:space-between;margin-top:2px">
+          <span>Croissant</span>
+          <span><span class="mut sm" style="text-decoration:line-through">R$ 8,50</span> <b style="font-size:16px">→ R$ 6,80</b></span>
+        </div>
+        <div class="mut xs" style="margin-top:4px">@cafearoma</div>
+      </div>
+    </div>
+    <div class="row" style="gap:8px;flex:none">
+      <div class="field" style="flex:1"><span class="col"><span class="xs">Produto</span><span class="fv b">Croissant</span></span><span class="sp"></span>▾</div>
+      <div class="field" style="flex:1.3"><span class="col"><span class="xs">Título</span><span class="fv b">Oferta da semana</span></span></div>
+    </div>
+    <div class="col" style="flex:none;gap:6px">
+      <div class="row" style="justify-content:space-between"><span class="sm b">Desconto</span><span class="b">20%</span></div>
+      <div style="position:relative;height:18px"><div style="position:absolute;top:7px;left:0;right:0;height:4px;border-radius:2px;background:var(--m)"></div><div style="position:absolute;top:7px;left:0;width:40%;height:4px;border-radius:2px;background:var(--d)"></div><div style="position:absolute;top:0;left:calc(40% - 9px);width:18px;height:18px;border-radius:50%;background:var(--d)"></div></div>
+    </div>
+    <div class="card fill row" style="flex:none;padding:10px 12px"><span class="ic" style="width:26px;height:26px">i</span><span class="sm">Melhor horário para postar hoje: <b>7h e 15h</b></span></div>
+    <div class="btn">Compartilhar imagem</div>
+  </div>
+  <div class="nav">
+    <div class="t"><div class="ni"><b>I</b></div>Início</div>
+    <div class="t"><div class="ni"><b>V</b></div>Vendas</div>
+    <div class="t"><div class="ni"><b>C</b></div>Clientes</div>
+    <div class="t"><div class="ni"><b>In</b></div>Insights</div>
+    <div class="t on"><div class="ni"><b>D</b></div>Divulgar</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>08</span>Divulgar</div>
+</div>
+
+<!-- ===================== 09 AVALIAÇÃO ===================== -->
+<div class="cell" data-n="09" data-name="Avaliação (NPS)">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct" style="gap:14px">
+    <div class="back"><span class="ar">←</span>Avaliação</div>
+    <div class="ph" style="width:64px;height:64px;border-radius:18px;align-self:center;flex:none;margin-top:6px"></div>
+    <div style="font-size:22px;font-weight:800;text-align:center;line-height:1.25;padding:0 8px;flex:none">Como foi sua experiência no Café Aroma &amp; Cia?</div>
+    <div class="mut sm" style="text-align:center;margin-top:-6px;flex:none">De 0 a 10, quanto você nos recomendaria a um amigo?</div>
+    <div class="num" style="grid-template-columns:repeat(6,1fr);flex:none"><div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div>
+    <div class="num" style="grid-template-columns:repeat(5,1fr);flex:none;margin-top:-6px"><div>6</div><div>7</div><div>8</div><div class="on">9</div><div>10</div></div>
+    <div class="row mut sm" style="justify-content:space-between;margin-top:-6px;flex:none"><span>Nada provável</span><span>Muito provável</span></div>
+    <div style="height:110px;border:var(--bd);border-radius:12px;padding:12px;color:#888;flex:none">Quer deixar um comentário? (opcional)</div>
+    <div class="field"><span class="ic" style="width:24px;height:24px">C</span><span>Cliente (opcional)</span><span class="sp"></span><span class="fv b">Selecionar ▸</span></div>
+    <div class="sp"></div>
+    <div class="btn">Enviar avaliação</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>09</span>Avaliação (NPS)</div>
+</div>
+
+<!-- ===================== 10 PRODUTOS ===================== -->
+<div class="cell" data-n="10" data-name="Produtos">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct">
+    <div class="back"><span class="ar">←</span>Produtos</div>
+    <div class="field"><span class="ic" style="width:22px;height:22px;font-size:11px">⌕</span>Buscar produto…</div>
+    <div class="list" style="flex:none">
+      <div class="it"><div class="em">☕</div><div class="col" style="flex:1"><span class="b">Café expresso</span><span class="mut xs">Bebidas · margem 78%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 6,00</span><span class="stock">Estoque 120</span></div></div>
+      <div class="it"><div class="em">☕</div><div class="col" style="flex:1"><span class="b">Cappuccino</span><span class="mut xs">Bebidas · margem 72%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 9,20</span><span class="stock">Estoque 80</span></div></div>
+      <div class="it"><div class="em">🧀</div><div class="col" style="flex:1"><span class="b">Pão de queijo</span><span class="mut xs">Padaria · margem 65%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 5,00</span><span class="stock">Estoque 48</span></div></div>
+      <div class="it"><div class="em">🥐</div><div class="col" style="flex:1"><span class="b">Croissant</span><span class="mut xs">Padaria · margem 60%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 8,50</span><span class="stock low">! Estoque 6</span></div></div>
+      <div class="it"><div class="em">🍰</div><div class="col" style="flex:1"><span class="b">Bolo de cenoura</span><span class="mut xs">Doces · margem 68%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 7,90</span><span class="stock">Estoque 22</span></div></div>
+      <div class="it"><div class="em">🥪</div><div class="col" style="flex:1"><span class="b">Misto quente</span><span class="mut xs">Lanches · margem 55%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 11,00</span><span class="stock">Estoque 30</span></div></div>
+      <div class="it"><div class="em">🥤</div><div class="col" style="flex:1"><span class="b">Suco de laranja</span><span class="mut xs">Bebidas · margem 62%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 8,00</span><span class="stock low">! Estoque 4</span></div></div>
+      <div class="it"><div class="em">🍩</div><div class="col" style="flex:1"><span class="b">Sonho</span><span class="mut xs">Doces · margem 70%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 6,50</span><span class="stock">Estoque 18</span></div></div>
+      <div class="it"><div class="em">🍪</div><div class="col" style="flex:1"><span class="b">Cookie</span><span class="mut xs">Doces · margem 74%</span></div><div class="col r" style="gap:3px;align-items:flex-end"><span class="b">R$ 5,50</span><span class="stock">Estoque 35</span></div></div>
+    </div>
+  </div>
+  <div class="fab nonav"><b>+</b></div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>10</span>Produtos</div>
+</div>
+
+<!-- ===================== 11 EMPRESA ===================== -->
+<div class="cell" data-n="11" data-name="Minha empresa">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct" style="gap:10px">
+    <div class="back"><span class="ar">←</span>Minha empresa</div>
+    <div><div class="fl">Nome do negócio</div><div class="field"><span class="fv">Café Aroma &amp; Cia</span></div></div>
+    <div><div class="fl">Segmento</div><div class="field"><span class="fv">Cafeteria / Padaria</span><span class="sp"></span>▾</div></div>
+    <div><div class="fl">Cidade</div><div class="field"><span class="fv">São Paulo – SP</span></div></div>
+    <div class="row" style="gap:8px">
+      <div style="flex:1"><div class="fl">Instagram</div><div class="field"><span class="fv">@cafearoma</span></div></div>
+      <div style="flex:1"><div class="fl">WhatsApp</div><div class="field"><span class="fv">(11) 90000-0000</span></div></div>
+    </div>
+    <div class="btn" style="margin-top:2px">Salvar</div>
+    <div class="h2" style="margin-top:6px">Dados</div>
+    <div class="card" style="padding:0 12px;flex:none">
+      <div class="list">
+        <div class="it" style="padding:12px 0"><span class="ic sq">↻</span><div class="col" style="flex:1"><span class="b">Atualizar feriados (internet)</span><span class="mut xs">Última atualização: 01/10</span></div><span class="mut">›</span></div>
+        <div class="it" style="padding:12px 0"><span class="ic sq">⟲</span><div class="col" style="flex:1"><span class="b">Restaurar dados de demonstração</span><span class="mut xs">Substitui os dados atuais</span></div><span class="mut">›</span></div>
+        <div class="it" style="padding:12px 0"><span class="ic sq" style="border-color:var(--d);border-style:dashed">✕</span><div class="col" style="flex:1"><span class="b" style="text-decoration:underline">Apagar todos os dados</span><span class="mut xs">Ação irreversível</span></div><span class="pill" style="background:var(--d);color:#fff">Perigo</span></div>
+      </div>
+    </div>
+    <div class="sp"></div>
+    <div class="mut xs" style="text-align:center;flex:none;padding-bottom:6px">Funciona 100% offline · dados salvos no aparelho (SQLite)</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>11</span>Minha empresa</div>
+</div>
+
+<!-- ===================== 12 EQUIPE ===================== -->
+<div class="cell" data-n="12" data-name="Equipe">
+<div class="phone">
+  <div class="sb"><span>9:41</span><span class="sbi"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+  <div class="ct" style="gap:10px">
+    <div class="back"><span class="ar">←</span>Equipe</div>
+    <div class="card fill row" style="flex:none;gap:14px;padding:14px">
+      <div class="ph" style="width:60px;height:60px;border-radius:16px;flex:none"></div>
+      <div class="col"><span style="font-size:22px;font-weight:800">Vitrine+</span><span class="mut sm">Projeto VI-B · Ciência dos Dados + Dispositivos Móveis II</span></div>
+    </div>
+    <div class="h2">Integrantes</div>
+    <div class="col" style="gap:8px;flex:none">
+      <div class="card row" style="padding:9px 12px"><div class="av">N1</div><div class="col" style="flex:1"><span class="b">Nome do Integrante 1</span><span class="mut xs">RA 000000</span></div><span class="pill o">Mobile/Flutter</span></div>
+      <div class="card row" style="padding:9px 12px"><div class="av">N2</div><div class="col" style="flex:1"><span class="b">Nome do Integrante 2</span><span class="mut xs">RA 000000</span></div><span class="pill o">Banco de dados</span></div>
+      <div class="card row" style="padding:9px 12px"><div class="av">N3</div><div class="col" style="flex:1"><span class="b">Nome do Integrante 3</span><span class="mut xs">RA 000000</span></div><span class="pill o">Ciência de dados</span></div>
+      <div class="card row" style="padding:9px 12px"><div class="av">N4</div><div class="col" style="flex:1"><span class="b">Nome do Integrante 4</span><span class="mut xs">RA 000000</span></div><span class="pill o">UX/UI</span></div>
+      <div class="card row" style="padding:9px 12px"><div class="av">N5</div><div class="col" style="flex:1"><span class="b">Nome do Integrante 5</span><span class="mut xs">RA 000000</span></div><span class="pill o">Documentação</span></div>
+    </div>
+    <div class="h2" style="margin-top:4px">Tecnologias</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;flex:none">
+      <span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">drift/SQLite</span><span class="chip">go_router</span><span class="chip">freezed</span><span class="chip">dio</span><span class="chip">fl_chart</span>
+    </div>
+    <div class="sp"></div>
+    <div class="mut xs" style="text-align:center;flex:none;padding-bottom:6px">Versão 1.0.0</div>
+  </div>
+  <i class="gh"></i>
+</div>
+<div class="label"><span>12</span>Equipe</div>
+</div>
+
+  </div>
+</div>
+<script>
+(function(){
+  var p=new URLSearchParams(location.search);
+  var s=p.get('screen');
+  if(s){
+    s=('0'+s).slice(-2);
+    document.body.classList.add('single');
+    document.querySelectorAll('.cell').forEach(function(c){ if(c.dataset.n===s) c.classList.add('on'); });
+  }
+  if(p.get('measure')){
+    var out=[];
+    document.querySelectorAll('.cell').forEach(function(c){
+      var ct=c.querySelector('.ct');
+      var lb=0,ctb=ct.getBoundingClientRect().bottom; Array.from(ct.children).forEach(function(k){var b=k.getBoundingClientRect(); if(b.height>0) lb=Math.max(lb,b.bottom); if(b.height<2&&k.tagName!=='SPAN'&&!k.classList.contains('sp')&&!k.classList.contains('div')) out.push('  zero '+c.dataset.n+' '+k.className);});
+      out.push(c.dataset.n+' free='+Math.round(ctb-lb)+' '+ct.scrollHeight+'/'+ct.clientHeight+(ct.scrollHeight>ct.clientHeight?' OVERFLOW':' ok'));
+      c.querySelectorAll('.row,.chips,.list .it').forEach(function(r){ if(r.scrollWidth>r.clientWidth+1 && !r.classList.contains('chips')) out.push('  hx '+c.dataset.n+' '+r.textContent.trim().slice(0,30)); });
+    });
+    var pre=document.createElement('pre'); pre.id='measure'; pre.textContent=out.join('\n')+'\nDOC '+document.documentElement.scrollWidth+'x'+document.documentElement.scrollHeight;
+    document.body.appendChild(pre);
+  }
+})();
+</script>
+</body>
+</html>

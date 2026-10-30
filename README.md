@@ -254,27 +254,7 @@ Capturas reais do app rodando em um emulador Android (1080 × 2400). Todas estã
 
 Material 3, cantos bem arredondados (22 px nos cards), tipografia pesada nos números e ícones arredondados. O ícone do app está em [`docs/marca/`](docs/marca).
 
-## 8. Tela com os nomes do grupo
-
-Acesso: **Início › ícone 👥 (canto superior direito)**.
-
-<img src="docs/screenshots/12-equipe.png" width="300" alt="Tela Equipe">
-
-Para colocar os nomes reais, edite **um único arquivo**,
-[`app/lib/features/equipe/domain/equipe.dart`](app/lib/features/equipe/domain/equipe.dart):
-
-```dart
-const instituicao = 'Nome da instituição';
-const professor = 'Prof. Nome do Professor';
-
-const integrantes = [
-  Integrante('Nome do Integrante 1', 'RA 000000', 'Desenvolvimento mobile (Flutter)'),
-  Integrante('Nome do Integrante 2', 'RA 000000', 'Banco de dados (SQLite/drift)'),
-  // ...
-];
-```
-
-## 9. Banco de dados local: qual usamos e como implementar
+## 8. Banco de dados local: qual usamos e como implementar
 
 ### Qual banco?
 **SQLite**, acessado pelo **[drift](https://drift.simonbinder.eu)**, um ORM *tipado* para Dart/Flutter. O arquivo `vitrine_plus.sqlite` fica na pasta privada do app no aparelho, então **nada depende de internet**.
@@ -403,7 +383,7 @@ SELECT substr(data_hora, 1, 10) AS dia, SUM(total) AS receita, COUNT(*) AS venda
 final db = AppDatabase(DatabaseConnection(NativeDatabase.memory()));
 ```
 
-## 10. Ciência dos Dados no app
+## 9. Ciência dos Dados no app
 
 Todos os algoritmos são **funções Dart puras** (sem dependência de banco ou de tela), cobertas por testes unitários em [`test/algoritmos_test.dart`](app/test/algoritmos_test.dart).
 
@@ -428,7 +408,7 @@ df.groupby("produto")["subtotal"].sum().sort_values(ascending=False).cumsum()  #
 
 Colunas: `venda_id, data_hora, dia_semana, hora, cliente, forma_pagamento, produto, categoria, quantidade, preco_unitario, subtotal, custo`.
 
-## 11. Arquitetura
+## 10. Arquitetura
 
 Seguimos o **[guia oficial de arquitetura do Flutter](https://docs.flutter.dev/app-architecture/guide)** (MVVM com camadas de **UI**, **Repositórios** e **Services**), organizado **por funcionalidade**.
 
@@ -466,7 +446,7 @@ flowchart LR
 
 **Offline-first:** o banco local é a única fonte de verdade. A internet só *atualiza* o cache de feriados. Sem rede, o app usa o calendário embutido (feriados nacionais calculados, incluindo Páscoa, Carnaval e Corpus Christi, mais datas comerciais como Dia das Mães e Black Friday).
 
-## 12. Tecnologias (com links)
+## 11. Tecnologias (com links)
 
 | Tecnologia | Versão | Para quê |
 |---|---|---|
@@ -490,7 +470,7 @@ flowchart LR
 | [Android Studio](https://developer.android.com/studio) / Android SDK | API 36 | Build e emulador |
 | [FVM](https://fvm.app) (opcional) | — | Fixar a versão do Flutter |
 
-## 13. Como rodar e testar
+## 12. Como rodar e testar
 
 Pré-requisitos: [Flutter SDK](https://docs.flutter.dev/get-started/install) 3.41+ e Android SDK (via Android Studio).
 
@@ -504,7 +484,7 @@ flutter run                      # com um emulador ou celular conectado
 
 > Quando alterar tabelas, modelos ou providers, rode `dart run build_runner build` de novo (ou `dart run build_runner watch` durante o desenvolvimento).
 
-## 14. Como gerar o APK
+## 13. Como gerar o APK
 
 ### APK para instalar e testar (rápido)
 
@@ -548,7 +528,7 @@ Uma cópia do APK já gerado fica em `entrega/vitrine-plus-1.0.0.apk`. Ela é ig
 
 > Sem a etapa de assinatura, o `flutter build apk --release` assina com a chave de *debug*. Isso basta para instalar e apresentar, mas não para publicar na Play Store.
 
-## 15. Estrutura de pastas
+## 14. Estrutura de pastas
 
 ```
 Projeto VI-B/
